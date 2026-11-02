@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Paper Trail 🧾 保單疑雲</title>
+<meta name="description" content="Real, final insurance court cases. Accident, fraud, or murder for the payout? Then find what cracked it.">
+<meta name="theme-color" content="#15130f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2315130f'/%3E%3Crect x='8' y='5' width='16' height='22' rx='2' fill='%23ece4cf'/%3E%3Cpath d='M11 11h10M11 15h10M11 19h6' stroke='%2315130f' stroke-width='2'/%3E%3Ccircle cx='21' cy='22' r='5' fill='none' stroke='%23c8372d' stroke-width='2.5'/%3E%3C/svg%3E">
+<meta property="og:type" content="website"><meta property="og:url" content="https://liyun-li.github.io/paper-trail/">
+<meta property="og:title" content="Paper Trail 🧾 保單疑雲"><meta property="og:description" content="Accident, fraud, or murder for the payout? Real, final court cases.">
+<meta property="og:image" content="https://liyun-li.github.io/paper-trail/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Paper Trail: a stamped insurance dossier.">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://liyun-li.github.io/paper-trail/og.png">
+<style>
+:root{--bg:#15130f;--bg2:#211e18;--ink:#f1ece0;--mut:#b3aa98;--pap:#ece4cf;--pap2:#f7f2e4;--dk:#1d1a14;--red:#a82a20;--man:#d9b56a;--grn:#1d6b43;--k:1;
+--sans:system-ui,-apple-system,"Segoe UI",Roboto,"PingFang TC","Noto Sans TC","Noto Sans CJK TC","Microsoft JhengHei",sans-serif;
+--mono:ui-monospace,"SF Mono",Menlo,Consolas,"Courier New","PingFang TC","Noto Sans TC","Noto Sans CJK TC",monospace}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);display:flex;justify-content:center}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.app{width:100%;max-width:34rem;min-width:0;height:100vh;height:100dvh;display:flex;flex-direction:column;
+ gap:clamp(.3rem,1.2dvh,.7rem);padding:calc(clamp(.3rem,1.1dvh,.75rem) + env(safe-area-inset-top)) calc(clamp(.45rem,3.2vw,1rem) + env(safe-area-inset-right)) calc(clamp(.3rem,1.1dvh,.75rem) + env(safe-area-inset-bottom)) calc(clamp(.45rem,3.2vw,1rem) + env(safe-area-inset-left))}
+.top{display:flex;align-items:center;gap:.4rem;min-width:0;flex:none}
+.h1{flex:none;min-width:0;margin:0 auto 0 0;font:inherit;display:flex}
+.logo{flex:none;font:900 clamp(.72rem,3.8vw,1.1rem)/1.1 var(--mono);letter-spacing:.03em;white-space:nowrap;background:none;border:0;text-align:left;color:var(--ink)}
+.logo b{color:var(--red);background:var(--pap);padding:0 .25em;border-radius:2px}
+.pill{flex:0 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:800 clamp(.56rem,2.7vw,.85rem) var(--mono);border:1px solid #ffffff40;border-radius:999px;padding:.25em .5em}
+.pill:empty{display:none}.pill.pop{animation:pop .35s}
+.lang{flex:none;display:flex;border:1px solid #ffffff40;border-radius:999px;background:none;overflow:hidden;cursor:pointer;font:800 clamp(.62rem,3vw,.8rem) var(--sans);color:var(--mut);padding:0}
+.lang span{padding:.3em .5em}.lang span.on{background:var(--ink);color:var(--bg)}
+.bar{height:3px;background:#ffffff1a;border-radius:2px;overflow:hidden;flex:none}.bar>div{height:100%;width:0;background:var(--red);transition:width .3s}
+button{font:inherit;cursor:pointer;color:inherit;touch-action:manipulation}
+a{color:#9fd0ff}
+:focus-visible{outline:3px solid var(--man);outline-offset:2px}
+.screen{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:clamp(.3rem,1.8dvh,1rem);flex:1 1 0;min-height:0;overflow:hidden}
+.screen.on{display:flex}
+.big{font:900 clamp(1.9rem,min(14vw,9dvh),4.2rem)/1 var(--mono);letter-spacing:.02em;display:flex;flex-direction:column;align-items:center;gap:.12em}
+.big b{color:var(--red);background:var(--pap);padding:.02em .25em;border:.08em solid var(--red);border-radius:.08em;transform:rotate(-4deg);font-size:.8em}
+.sub{color:var(--mut);font-size:clamp(.74rem,min(4vw,2.5dvh),1rem);max-width:24rem;line-height:1.35}
+.modes{display:flex;flex-direction:column;gap:clamp(.3rem,1.3dvh,.6rem);width:min(100%,20rem)}
+.cta{background:var(--red);color:#fff;border:0;border-radius:.65rem;font-weight:900;font-size:clamp(.95rem,min(5.4vw,3.4dvh),1.3rem);padding:clamp(.4rem,1.4dvh,.75rem) 1rem;box-shadow:0 .25rem 0 #0008;line-height:1.15}
+.cta small,.ghost small{display:block;font-weight:700;font-size:.62em}
+.cta:active,.ghost:active,.opts button:active,.next:active{transform:translateY(2px) scale(.98);box-shadow:0 .08rem 0 #0008}
+.ghost{background:var(--bg2);border:1px solid #ffffff40;border-radius:.65rem;padding:clamp(.35rem,1.2dvh,.6rem) .9rem;font-weight:800;font-size:clamp(.78rem,min(4vw,2.6dvh),.98rem);line-height:1.15;box-shadow:0 .2rem 0 #0008}
+.note{font-size:clamp(.6rem,min(3vw,1.9dvh),.78rem);color:var(--mut);max-width:26rem;line-height:1.3}
+.note:empty{display:none}
+.links{display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center;font-size:clamp(.62rem,min(3vw,1.9dvh),.8rem)}
+.links a{color:var(--mut)}
+/* game */
+#game{display:none;flex-direction:column;gap:clamp(.3rem,1dvh,.55rem);flex:1 1 0;min-height:0}
+#game.on{display:flex}
+.card{flex:1 1 0;min-height:0;display:flex;flex-direction:column;background:var(--pap);color:var(--dk);border-radius:.3rem .55rem .55rem .55rem;padding:clamp(.35rem,1.3dvh,.85rem) clamp(.5rem,3vw,1rem);gap:clamp(.2rem,.9dvh,.5rem);overflow:hidden;position:relative;box-shadow:0 .3rem 0 #0006;
+ background-image:repeating-linear-gradient(0deg,transparent 0 1.6rem,#0000000a 1.6rem calc(1.6rem + 1px))}
+.chead{display:flex;justify-content:space-between;align-items:center;gap:.5rem;font:800 clamp(.58rem,min(3vw,1.9dvh),.78rem) var(--mono);letter-spacing:.1em;color:#6b6252;border-bottom:1px dashed #0003;padding-bottom:clamp(.12rem,.5dvh,.3rem);flex:none;min-width:0}
+.chead>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.worth{color:var(--pap);background:var(--dk);border-radius:999px;padding:.1em .55em;letter-spacing:.04em;flex:none}.worth.pop{animation:pop .35s}
+.steps{display:flex;gap:.25rem;flex:none;align-items:center}.steps i{width:1.1em;height:.3em;border-radius:2px;background:#0002;display:block}.steps i.on{background:var(--red)}
+.meta{flex:none;font:700 clamp(.6rem,min(3.1vw,2dvh),.8rem)/1.3 var(--mono);color:#5e5646;letter-spacing:.04em;overflow-wrap:anywhere;text-transform:uppercase}
+.docs{list-style:none;flex:1 1 0;min-height:0;display:flex;flex-direction:column;gap:calc(var(--k)*clamp(.18rem,.8dvh,.45rem));overflow:hidden;padding:0 .15rem .15rem 0}
+.doc{flex:none;display:flex;gap:.5em;align-items:baseline;background:var(--pap2);border:1px solid #0000001f;border-left:.25em solid var(--dk);border-radius:.2rem;box-shadow:.12rem .12rem 0 #0000001a;
+ padding:calc(var(--k)*clamp(.2rem,.8dvh,.45rem)) .5em;font:600 calc(var(--k)*clamp(.74rem,min(4.1vw,2.6dvh),1.02rem))/1.3 var(--sans);overflow-wrap:anywhere;min-width:0;animation:slide .3s both}
+.doc b{flex:none;font:900 .7em var(--mono);color:#6b6252;letter-spacing:.06em}
+.doc span{min-width:0;flex:1 1 0}
+.doc.red span{display:flex;align-items:center;align-self:stretch}.doc.red i{display:block;height:.95em;background:var(--dk);border-radius:1px}
+.loading{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.6rem;font:800 .9rem var(--mono);color:#6b6252}
+.mrow{display:flex;align-items:center;justify-content:space-between;gap:.4rem;flex:none;min-width:0;min-height:1.2em}.mrow .meta{min-width:0}
+.stamp{flex:none;margin:clamp(.1rem,.6dvh,.35rem) .3rem clamp(.1rem,.6dvh,.35rem) 0;transform:rotate(-6deg);font:900 clamp(.95rem,min(6vw,3.6dvh),1.5rem)/1 var(--mono);border:.18em double currentColor;border-radius:.25rem;padding:.12em .4em;background:#f7f2e4d9;white-space:nowrap;letter-spacing:.06em;pointer-events:none;display:none;max-width:90%;overflow:hidden;text-overflow:ellipsis}
+.stamp.ok{color:var(--grn)}.stamp.no{color:var(--red)}
+#game.s-c .stamp,#game.s-r .stamp{display:block}
+#game.anim .stamp{animation:stamp .45s cubic-bezier(.2,.9,.3,1.4)}
+/* reveal */
+.rv{display:none;flex:1 1 0;min-height:0;flex-direction:column;gap:calc(var(--k)*clamp(.25rem,1dvh,.6rem));overflow:hidden}
+#game.s-r .rv{display:flex}#game.s-r .docs{display:none}
+.rline{font:900 calc(var(--k)*clamp(.8rem,min(4.4vw,2.8dvh),1.1rem))/1.25 var(--mono);flex:none}
+.rcrack{font:700 calc(var(--k)*clamp(.72rem,min(3.9vw,2.5dvh),.98rem))/1.3 var(--sans);background:var(--pap2);border-left:.25em solid var(--red);padding:.3em .5em;border-radius:.2rem;flex:none;overflow-wrap:anywhere}
+.rcrack b{font:900 .78em var(--mono);color:#6b6252;letter-spacing:.06em;display:block}
+.rtext{font:500 calc(var(--k)*clamp(.74rem,min(4vw,2.55dvh),1rem))/1.4 var(--sans);flex:none;overflow-wrap:anywhere}
+.rsrc{flex:none;font:700 calc(var(--k)*clamp(.64rem,min(3.4vw,2.2dvh),.86rem)) var(--mono);overflow-wrap:anywhere}
+.rsrc a{color:#0b4f94;display:inline-flex;align-items:center;min-height:max(1.5rem,1.6em)}
+/* options */
+.side{display:flex;flex-direction:column;gap:clamp(.25rem,.9dvh,.5rem);flex:none;min-height:0}
+.q{font:900 clamp(.72rem,min(3.9vw,2.5dvh),.98rem) var(--mono);color:var(--man);letter-spacing:.04em;text-align:center}
+#game.s-r .q{display:none}
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(.3rem,1dvh,.5rem);flex:none}
+.opts.c4{grid-template-columns:1fr;grid-auto-rows:1fr;gap:calc(var(--ko,1)*clamp(.3rem,1dvh,.5rem))}
+.opts button{min-width:0;background:var(--bg2);border:1px solid #ffffff38;border-radius:.55rem;padding:clamp(.3rem,1.1dvh,.6rem) .25rem;font-weight:800;font-size:clamp(.64rem,min(3.7vw,2.5dvh),1rem);overflow-wrap:break-word;line-height:1.2;min-height:clamp(2.6rem,9dvh,4.2rem);box-shadow:0 .2rem 0 #0008;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15em}
+.opts button small{font-weight:600;font-size:.72em;color:var(--mut);line-height:1.15}
+.opts.c4 button{min-height:calc(var(--ko,1)*clamp(2.2rem,6.4dvh,3rem));flex-direction:row;justify-content:flex-start;text-align:left;gap:.55em;padding:calc(var(--ko,1)*clamp(.3rem,1.1dvh,.6rem)) .6rem;font-weight:700;font-size:calc(var(--ko,1)*clamp(.7rem,min(3.7vw,2.35dvh),.95rem));line-height:1.15}
+.opts.c4 button>i{font:900 .8em var(--mono);font-style:normal;color:var(--man);flex:none}
+#game.s-r .opts{display:none}
+.next{flex:none;background:var(--ink);color:var(--bg);border:0;border-radius:.6rem;font-weight:900;font-size:clamp(.95rem,min(5.2vw,3.3dvh),1.25rem);padding:clamp(.38rem,1.4dvh,.7rem);box-shadow:0 .2rem 0 #0008;display:none}
+#game.s-r .next{display:block}
+/* end */
+.score{font:900 clamp(2rem,min(16vw,9dvh),4.4rem)/1 var(--mono)}.score small{font-size:.45em;color:var(--mut)}
+.rank{font-weight:900;color:var(--red);background:var(--pap);padding:.1em .5em;border:3px double var(--red);transform:rotate(-3deg);font-family:var(--mono);font-size:clamp(.9rem,min(5vw,3dvh),1.35rem);max-width:100%;overflow-wrap:anywhere}
+.grid{font-size:clamp(.8rem,min(4.4vw,2.8dvh),1.2rem);display:flex;flex-wrap:wrap;justify-content:center;gap:.15em .6em;line-height:1.1}
+.streak{font-weight:800;font-size:clamp(.72rem,min(3.8vw,2.4dvh),.95rem);color:var(--mut)}
+.row{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;align-items:center}
+#end .cta{padding:clamp(.32rem,1.2dvh,.65rem) clamp(1rem,6vw,2rem)}
+.toast:empty{display:none}.toast{font-weight:800;color:var(--man);font-size:.85rem;white-space:pre-line}
+.foot{font-size:.6rem;color:var(--mut);text-align:center;flex:none}.foot a{color:var(--mut)}
+body.ingame .foot,body.atend .foot{display:none}
+@media (orientation:landscape) and (max-height:559px){
+ #game.on{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:.4rem .8rem}
+ .side{justify-content:center}
+ .opts{grid-template-columns:1fr}
+ .opts button{min-height:0;flex-direction:row;gap:.5em}
+ .foot{display:none}
+ #end.on{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-content:center;justify-items:center;column-gap:1rem}
+}
+@media (max-height:430px){.opts button small{display:none}}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.08)}100%{transform:scale(1)}}
+@keyframes slide{from{opacity:0;transform:translateY(.5em)}to{opacity:1;transform:none}}
+@keyframes stamp{from{opacity:0;transform:rotate(-6deg) scale(2.4)}to{opacity:1;transform:rotate(-6deg) scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.opts button.right{background:#17402c;border-color:#3fb67d}.opts button.wrong{background:#4a1d1a;border-color:#e0645a;animation:shake .35s}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+#game.s-load .mrow,#game.s-load .docs,#game.s-load .side,#game.s-load .rv{display:none}
+#game.nodocs .docs{display:none}
+#game.s-c .stamp{margin-block:.15rem;font-size:clamp(.72rem,min(4.6vw,2.8dvh),1.3rem)}
+</style></head><body>
+<main class="app">
+<header class="top"><h1 class="h1"><button class="logo" id="logo" type="button"><span data-t="logoA"></span> <b data-t="logoB"></b></button></h1><div class="pill" id="hud"></div><button class="lang" id="langBtn" type="button"><span id="lEn" lang="en">EN</span><span id="lZh" lang="zh-Hant">中</span><span class="sr"> · Language / 語言</span></button></header>
+<div class="bar" aria-hidden="true"><div id="prog"></div></div>
+
+<section class="screen on" id="start" aria-labelledby="sTitle">
+ <h2 class="big" id="sTitle"><span data-t="bigA"></span><b data-t="bigB"></b></h2>
+ <p class="sub" data-t="tag"></p>
+ <div class="modes">
+  <button class="cta" id="dailyBtn" type="button"></button>
+  <button class="ghost" id="endlessBtn" type="button"></button>
+ </div>
+ <p class="note" data-t="legal"></p>
+ <p class="note" id="upd"></p>
+ <div class="links"><a href="about.html" data-t="about"></a></div>
+</section>
+
+<section id="game" aria-labelledby="qText">
+ <div class="card" id="card">
+  <div class="chead"><span id="caseNo"></span><span class="steps" id="steps" aria-hidden="true"><i></i><i></i><i></i></span><span class="worth" id="worth"></span></div>
+  <div class="loading" id="loading" hidden><span data-t="loading"></span><button class="ghost" id="retryBtn" type="button" hidden data-t="retry"></button></div>
+  <div class="mrow"><p class="meta" id="meta"></p><span class="stamp" id="stamp" aria-hidden="true"></span></div>
+  <ol class="docs" id="docs"></ol>
+  <div class="rv" id="rv" aria-live="polite">
+   <p class="rline" id="rline"></p>
+   <p class="rcrack" id="rcrack"></p>
+   <p class="rtext" id="rtext"></p>
+   <p class="rsrc"><a id="srcLink" href="#" target="_blank" rel="noopener"></a></p>
+  </div>
+ </div>
+ <div class="side">
+  <h2 class="q" id="qText"></h2>
+  <div class="opts" id="opts" role="group" aria-labelledby="qText"></div>
+  <button class="next" id="next" type="button"></button>
+ </div>
+ <p class="sr" id="live" aria-live="polite"></p>
+</section>
+
+<section class="screen" id="end" aria-labelledby="score">
+ <div class="score" id="score"></div>
+ <div class="rank" id="rank"></div>
+ <div class="grid" id="grid" aria-hidden="true"></div>
+ <div class="streak" id="streak"></div>
+ <div class="row"><button class="cta" id="shareBtn" type="button" data-t="share"></button><button class="ghost" id="againBtn" type="button"></button></div>
+ <div class="toast" id="toast" role="status"></div>
+</section>
+<p class="foot"><span data-t="foot"></span> · <a href="about.html" data-t="about"></a></p>
+</main>
+
+<script>
+"use strict";
+const VP=2,CP=1,LIVES=3,DOCKET=5,EPOCH=Date.UTC(2026,10,2),URL0='https://liyun-li.github.io/paper-trail/';
+const VS=['accident','fraud','murder'];
+const S={en:{
+ logoA:"PAPER",logoB:"TRAIL",bigA:"PAPER",bigB:"TRAIL",
+ tag:"Real insurance cases, final rulings. Accident, fraud, or murder for the payout? Then find what cracked it.",
+ daily:n=>`TODAY’S FILES #${n}<small>5 cases · same for everyone</small>`,
+ dailyRes:(n,i)=>`RESUME FILES #${n}<small>case ${i+1} of 5</small>`,
+ dailyDone:(n,p,m)=>`✓ FILES #${n} · ${p}/${m}<small>See results · new files at midnight (Taipei)</small>`,
+ endless:b=>`♾️ ENDLESS<small>3 strikes${b?` · best ${b}`:''}</small>`,
+ loading:"Pulling the file…",retry:"RETRY",loadFail:"Couldn’t load the files.",
+ legal:"Final court rulings only. Roles, not names.",about:"About & sources",
+ updated:n=>`${n} closed cases`,
+ caseD:(i,n)=>`FILE ${i}/${n}`,caseE:i=>`FILE ${i}`,ex:i=>`EX.${'ABCDEFGH'[i]}`,
+ qV:"Accident, fraud, or murder?",qC:"What cracked it?",
+ v:{accident:["Accident","insurer had to pay"],fraud:["Fraud","faked, no one killed"],murder:["Murder","killed for the payout"]},
+ st:{accident:"ACCIDENT",fraud:"FRAUD",murder:"MURDER"},
+ crack:"THE CRACK",rcOk:"✓ You found it",rcNo:"✗ You picked",
+ line:(ok,v,p)=>ok?`✓ ${v}. +${p}`:`✗ It was ${v}.`,
+ src:id=>`Ruling: ${id} ↗`,next:"NEXT FILE →",finish:"RESULTS →",
+ share:"SHARE",again:"PLAY AGAIN",endless2:"♾️ ENDLESS",copied:"Copied!",
+ foot:"Data: published court rulings",
+ rank:["Rookie adjuster","Claims clerk","Fraud desk","Special investigator","Bloodhound"],
+ streak:n=>`🔥 ${n}-day streak · new files at midnight (Taipei)`,
+ endlessRes:(c,b)=>`${c} cases · best ${b}`,newBest:"🏆 New best!",
+ sh:(n,p,m)=>`Paper Trail 🧾 #${n} · ${p}/${m}`,shE:(p,c)=>`Paper Trail 🧾 Endless · ${p} pts in ${c} cases`,shStreak:n=>`🔥 ${n}-day streak`,
+ strikes:"strikes",pts:"pts"
+},zh:{
+ logoA:"保單",logoB:"疑雲",bigA:"保單",bigB:"疑雲",
+ tag:"真實保險案件，全部判決確定。是意外、詐保，還是殺人詐保？再找出破案關鍵。",
+ daily:n=>`今日卷宗 #${n}<small>5 案・大家都一樣</small>`,
+ dailyRes:(n,i)=>`繼續卷宗 #${n}<small>第 ${i+1} / 5 案</small>`,
+ dailyDone:(n,p,m)=>`✓ 卷宗 #${n}・${p}/${m} 分<small>看結果・台灣時間午夜換新</small>`,
+ endless:b=>`♾️ 無盡模式<small>三振出局${b?`・最佳 ${b} 分`:''}</small>`,
+ loading:"調閱卷宗中…",retry:"重試",loadFail:"卷宗載入失敗。",
+ legal:"只收判決確定的案件。只寫身分，不寫姓名。",about:"關於與資料來源",
+ updated:n=>`共 ${n} 件結案`,
+ caseD:(i,n)=>`卷宗 ${i}/${n}`,caseE:i=>`卷宗 ${i}`,ex:i=>`證物${'甲乙丙丁戊己庚辛'[i]}`,
+ qV:"意外、詐保，還是殺人？",qC:"破案關鍵是哪個？",
+ v:{accident:["意外","保險公司得賠"],fraud:["詐保","造假，沒人喪命"],murder:["殺人詐保","為保險金殺人"]},
+ st:{accident:"意外",fraud:"詐保",murder:"殺人詐保"},
+ crack:"破案關鍵",rcOk:"✓ 你找到了",rcNo:"✗ 你選的是",
+ line:(ok,v,p)=>ok?`✓ ${v}，+${p}`:`✗ 答案是${v}。`,
+ src:id=>`判決：${id} ↗`,next:"下一案 →",finish:"看結果 →",
+ share:"分享",again:"再玩一次",endless2:"♾️ 無盡模式",copied:"已複製！",
+ foot:"資料：公開法院判決",
+ rank:["菜鳥理賠員","理賠專員","查詐組","特偵組","鐵血獵犬"],
+ streak:n=>`🔥 連續 ${n} 天・台灣時間午夜換新`,
+ endlessRes:(c,b)=>`${c} 案・最佳 ${b} 分`,newBest:"🏆 新紀錄！",
+ sh:(n,p,m)=>`保單疑雲 🧾 #${n}・${p}/${m}`,shE:(p,c)=>`保單疑雲 🧾 無盡模式・${c} 案 ${p} 分`,shStreak:n=>`🔥 連續 ${n} 天`,
+ strikes:"",pts:"分"
+}};
+const $=id=>document.getElementById(id);
+const LS={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+const QS=new URLSearchParams(location.search);
+let L=(()=>{const q=QS.get('lang');if(q)return /^zh/i.test(q)?'zh':'en';const s=LS.get('pt_lang');if(s==='zh'||s==='en')return s;
+ for(const l of (navigator.languages||[navigator.language||'en'])){if(/^zh[-_](tw|hk|mo|hant)/i.test(l)||/hant/i.test(l))return 'zh';if(/^zh/i.test(l))return 'zh';if(/^en/i.test(l))return 'en'}return 'en'})();
+const T=k=>S[L][k];
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function h32(s){let h=2166136261>>>0;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function rng(seed){let a=h32(String(seed));return()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function shuf(a,r=Math.random){for(let i=a.length-1;i>0;i--){const j=r()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+// Day boundaries are Asia/Taipei (UTC+8, no DST) for every player.
+function dayStr(ms){return new Date(ms+8*36e5).toISOString().slice(0,10)}
+function today(){return dayStr(Date.now())}
+function dayNo(day){const [y,m,d]=day.split('-').map(Number);return Math.round((Date.UTC(y,m-1,d)-EPOCH)/864e5)+1}
+function prevDay(day){const [y,m,d]=day.split('-').map(Number);return new Date(Date.UTC(y,m-1,d)-864e5).toISOString().slice(0,10)}
+let SLOTS=5,CASES=[],BYID={},run=null,lastEnd=null,loadP=null;
+async function getJSON(u,tries){for(let k=0;k<tries;k++){try{const r=await fetch(u,{cache:'no-cache'});if(!r.ok)throw 0;return await r.json()}catch(e){if(k<tries-1)await new Promise(r=>setTimeout(r,600*(k+1)))}}throw new Error('load')}
+function valid(c){return c&&c.id&&VS.includes(c.verdict)&&Array.isArray(c.trail_en)&&Array.isArray(c.trail_zh)&&c.trail_en.length&&Array.isArray(c.cracks_en)&&c.cracks_en.length===4&&Array.isArray(c.cracks_zh)&&c.cracks_zh.length===4&&c.crack_answer>=0&&c.crack_answer<4}
+function boot(){if(loadP)return loadP;loadP=getJSON('cases.json',3).then(d=>{const a=(Array.isArray(d)?d:d.cases||[]).filter(valid);if(!a.length)throw new Error('empty');
+ CASES=a;SLOTS=Math.min(6,Math.max(...a.map(c=>Math.max(c.trail_en.length,c.trail_zh.length))));BYID={};for(const c of a)BYID[c.id]=c;renderStart();return a}).catch(e=>{loadP=null;throw e});return loadP}
+// ---- runs ----
+// Daily: a fixed shuffled order of all cases; day N takes the next 5, so every case shows before any repeats.
+function docketIds(day){const ids=CASES.map(c=>c.id).sort();shuf(ids,rng('order|'+ids.length));const n=dayNo(day),o=[];
+ const k=Math.min(DOCKET,ids.length);let s=((n-1)*k)%ids.length;if(s<0)s+=ids.length;for(let i=0;i<k;i++)o.push(ids[(s+i)%ids.length]);return o}
+function crackOrder(seed){return shuf([0,1,2,3],rng('crack|'+seed))}
+function newDaily(){const day=today(),ids=docketIds(day);run={mode:'d',day,ids,co:ids.map(id=>crackOrder(day+id)),i:0,st:'v',res:[]};save()}
+function newEndless(){run={mode:'e',ids:[],co:[],i:0,st:'v',res:[],lives:LIVES};addEndless();save()}
+function addEndless(){const seen=new Set(LS.get('pt_seen')||[]),used=new Set(run.ids);let p=CASES.filter(c=>!used.has(c.id)&&!seen.has(c.id));
+ if(!p.length)p=CASES.filter(c=>!used.has(c.id));if(!p.length)return false;const c=p[Math.random()*p.length|0];run.ids.push(c.id);run.co.push(crackOrder(Math.random()));return true}
+function save(){if(run)LS.set(run.mode==='d'?'pt_daily':'pt_endless',run)}
+function cur(){return BYID[run.ids[run.i]]}
+function score(r=run){return r.res.reduce((s,x)=>s+(x.vok?VP:0)+(x.cok?CP:0),0)}
+function show(id){for(const s of ['start','game','end'])$(s).classList.toggle('on',s===id);document.body.classList.toggle('ingame',id==='game');document.body.classList.toggle('atend',id==='end');if(id==='start'){$('hud').textContent='';$('prog').style.width='0'}}
+function bump(e){e.classList.remove('pop');void e.offsetWidth;e.classList.add('pop')}
+function hud(){if(!run)return;const sc=score();
+ if(run.mode==='d'){$('hud').textContent=`${Math.min(run.i+1,run.ids.length)}/${run.ids.length} · ${sc} ${T('pts')}`;$('prog').style.width=(run.res.filter(x=>x.c!=null).length/run.ids.length*100)+'%'}
+ else{$('hud').textContent=`${'❤️'.repeat(Math.max(0,run.lives))}${'🖤'.repeat(LIVES-Math.max(0,run.lives))} · ${sc}`;$('prog').style.width=((LIVES-run.lives)/LIVES*100)+'%'}}
+function tx(c,k){return c[k+'_'+L]}
+function fit(el){let k=1.3;el.style.setProperty('--k',k);while(el.scrollHeight>el.clientHeight+1&&k>.4){k-=.05;el.style.setProperty('--k',k.toFixed(2))}return k}
+function fitAll(){const g=$('game');if(!g.classList.contains('on'))return;g.classList.remove('nodocs');const o=$('opts');o.style.removeProperty('--ko');if(run&&run.st==='r'){fit($('rv'));return}
+ if(run&&run.st==='c'){g.classList.add('nodocs');let ko=1;const over=()=>g.scrollHeight>g.clientHeight+1||[...o.children].some(b=>b.scrollHeight>b.clientHeight+1);
+  while(over()&&ko>.6){ko-=.05;o.style.setProperty('--ko',ko.toFixed(2))}g.classList.remove('nodocs')}
+ const k=fit($('docs'));if(run&&run.st==='c'&&k<.7)g.classList.add('nodocs')}
+function renderRound(anim){const c=cur(),x=run.res[run.i]||null,st=run.st,g=$('game');
+ g.className='on s-'+st+(anim?' anim':'');
+ $('caseNo').textContent=run.mode==='d'?T('caseD')(run.i+1,run.ids.length):T('caseE')(run.i+1);
+ $('steps').querySelectorAll('i').forEach((e,j)=>e.classList.toggle('on',j<=['v','c','r'].indexOf(st)));
+ const pts=x?(x.vok?VP:0)+(x.cok?CP:0):0;$('worth').textContent=st==='v'?`+${VP}`:st==='c'?`+${CP}`:`+${pts}`;
+ $('meta').textContent=`${c.year} · ${tx(c,'place')}`;
+ // Every file shows the same number of exhibits; short trails are padded with redacted slips so card count never hints at the verdict.
+ const tr=tx(c,'trail'),r0=rng('pad|'+c.id),sty=j=>anim&&st==='v'?` style="animation-delay:${j*70}ms"`:' style="animation:none"';
+ $('docs').innerHTML=tr.map((t,j)=>`<li class="doc"${sty(j)}><b>${esc(T('ex')(j))}</b><span>${esc(t)}</span></li>`).join('')+
+  Array.from({length:Math.max(0,SLOTS-tr.length)},(_,q)=>{const j=tr.length+q;return `<li class="doc red" aria-hidden="true"${sty(j)}><b>${esc(T('ex')(j))}</b><span><i style="width:${45+(r0()*50|0)}%"></i></span></li>`}).join('');
+ const sp=$('stamp');if(x){sp.textContent=(x.vok?'✓ ':'✗ ')+T('st')[c.verdict];sp.className='stamp '+(x.vok?'ok':'no')}
+ const o=$('opts');
+ if(st==='v'){$('qText').textContent=T('qV');o.className='opts';
+  o.innerHTML=VS.map((v,j)=>`<button type="button" id="b${j}" data-v="${v}">${esc(T('v')[v][0])}<small>${esc(T('v')[v][1])}</small></button>`).join('');
+  o.querySelectorAll('button').forEach(b=>b.onclick=()=>pickV(b.dataset.v))}
+ else if(st==='c'){$('qText').textContent=T('qC');o.className='opts c4';const co=run.co[run.i];
+  o.innerHTML=co.map((ci,j)=>`<button type="button" id="b${j}" data-c="${ci}"><i aria-hidden="true">${j+1}</i><span>${esc(tx(c,'cracks')[ci])}</span></button>`).join('');
+  o.querySelectorAll('button').forEach(b=>b.onclick=()=>pickC(+b.dataset.c))}
+ else{o.innerHTML='';renderReveal()}
+ hud();requestAnimationFrame(fitAll)}
+function renderReveal(){const c=cur(),x=run.res[run.i];const v=T('st')[c.verdict];
+ $('rline').textContent=T('line')(x.vok,v,VP);$('rline').style.color=x.vok?'var(--grn)':'var(--red)';
+ const ans=tx(c,'cracks')[c.crack_answer];
+ $('rcrack').innerHTML=`<b>${esc(T('crack'))} · ${x.cok?esc(T('rcOk'))+' +'+CP:esc(T('rcNo'))+(L==='zh'?'：':': ')+esc(tx(c,'cracks')[x.c])}</b>${esc(ans)}`;
+ $('rtext').textContent=tx(c,'reveal');
+ const s=c.source||{};const a=$('srcLink');a.textContent=T('src')(s.id||'');a.href=s.url||'#';a.hidden=!s.url;
+ const over=run.mode==='d'?run.i+1>=run.ids.length:run.lives<=0;$('next').textContent=over?T('finish'):T('next')}
+function vib(p){if(navigator.vibrate)try{navigator.vibrate(p)}catch(e){}}
+function pickV(v){if(run.st!=='v')return;const c=cur(),ok=v===c.verdict;run.res[run.i]={v,vok:ok,c:null,cok:false};if(run.mode==='e'&&!ok)run.lives--;
+ run.st='c';save();renderRound(true);bump($('hud'));vib(ok?[15,30,15]:[40]);$('live').textContent=(ok?'✓ ':'✗ ')+T('st')[c.verdict];setTimeout(()=>$('b0')&&$('b0').focus({preventScroll:true}),60)}
+function pickC(ci){if(run.st!=='c')return;const c=cur(),x=run.res[run.i];x.c=ci;x.cok=ci===c.crack_answer;run.st='r';save();
+ if(run.mode==='e')addSeen([c.id]);renderRound(true);bump($('hud'));vib(x.cok?[15]:[30]);$('live').textContent=$('rline').textContent;
+ setTimeout(()=>$('next').focus({preventScroll:true}),60)}
+$('next').onclick=()=>{const over=run.mode==='d'?run.i+1>=run.ids.length:run.lives<=0;if(over){finish();return}
+ if(run.mode==='e'&&run.i+1>=run.ids.length&&!addEndless()){finish();return}
+ run.i++;run.st='v';save();renderRound(true);$('b0')&&$('b0').focus({preventScroll:true})};
+function addSeen(ids){const s=new Set(LS.get('pt_seen')||[]);ids.forEach(i=>s.add(i));LS.set('pt_seen',[...s].slice(-800))}
+function finish(){addSeen(run.ids);
+ if(run.mode==='d'){const days=new Set(LS.get('pt_days')||[]);days.add(run.day);LS.set('pt_days',[...days].sort().slice(-400));run.fin=1;save()}
+ else{const b=LS.get('pt_best')||0;run.best=b;if(score()>b)LS.set('pt_best',score());LS.del('pt_endless')}
+ lastEnd=run;show('end');renderEnd()}
+function streak(){const days=new Set(LS.get('pt_days')||[]);let d=today(),n=0;if(!days.has(d))d=prevDay(d);while(days.has(d)){n++;d=prevDay(d)}return n}
+function rows(r){return r.res.map(x=>(x.vok?'🟩':'🟥')+(x.cok?'🔍':'⬛'))}
+function renderEnd(){const r=lastEnd;if(!r)return;run=r;const sc=score();
+ if(r.mode==='d'){const mx=r.ids.length*(VP+CP);$('score').innerHTML=`${sc}<small>/${mx}</small>`;const q=sc/mx;$('rank').textContent=T('rank')[q>=.9?4:q>=.65?3:q>=.4?2:q>=.2?1:0];
+  $('streak').textContent=T('streak')(streak());$('againBtn').textContent=T('endless2');$('hud').textContent=`#${dayNo(r.day)} · ${sc} ${T('pts')}`}
+ else{$('score').textContent=sc;const best=Math.max(r.best||0,sc);$('rank').textContent=sc>(r.best||0)&&sc>0?T('newBest'):T('rank')[Math.min(4,Math.floor(r.res.length/3))];
+  $('streak').textContent=T('endlessRes')(r.res.length,best);$('againBtn').textContent=T('again');$('hud').textContent=`${sc} ${T('pts')}`}
+ $('grid').innerHTML=rows(r).map(x=>`<span>${x}</span>`).join('');$('prog').style.width='100%';$('toast').textContent=''}
+$('shareBtn').onclick=async()=>{const r=lastEnd,sc=score(r);let txt;
+ if(r.mode==='d'){txt=T('sh')(dayNo(r.day),sc,r.ids.length*(VP+CP))+'\n'+rows(r).join(' ');const s=streak();if(s>1)txt+='\n'+T('shStreak')(s)}
+ else txt=T('shE')(sc,r.res.length)+'\n'+rows(r).join(' ');
+ const url=URL0+(r.mode==='d'?'?daily':'');
+ try{if(navigator.share){await navigator.share({text:txt,url});return}}catch(e){if(e&&e.name==='AbortError')return}
+ try{await navigator.clipboard.writeText(txt+'\n'+url);$('toast').textContent=T('copied')}catch(e){$('toast').textContent=txt+'\n'+url}};
+$('againBtn').onclick=()=>startEndless();
+// ---- start ----
+function dailyState(){const d=LS.get('pt_daily');return d&&d.day===today()&&d.ids&&d.ids.every(id=>BYID[id])?d:null}
+function renderStart(){const day=today(),n=dayNo(day);if(!CASES.length){$('dailyBtn').innerHTML=T('daily')(n);$('endlessBtn').innerHTML=T('endless')(LS.get('pt_best')||0);return}const d=dailyState();
+ $('dailyBtn').innerHTML=d&&d.fin?T('dailyDone')(n,score(d),d.ids.length*(VP+CP)):d?T('dailyRes')(n,d.i):T('daily')(n);
+ $('endlessBtn').innerHTML=T('endless')(LS.get('pt_best')||0);$('upd').textContent=T('updated')(CASES.length)}
+let retryF=null;
+async function withData(f,again){retryF=again;show('game');$('loading').hidden=false;$('retryBtn').hidden=true;$('game').className='on s-load';
+ try{await boot();$('loading').hidden=true;f()}catch(e){$('loading').querySelector('span').textContent=T('loadFail');$('retryBtn').hidden=false}}
+$('retryBtn').onclick=()=>{$('loading').querySelector('span').textContent=T('loading');retryF&&retryF()};
+function startDaily(){withData(()=>{const d=dailyState();if(d&&d.fin){run=d;lastEnd=d;show('end');renderEnd();return}
+ if(d)run=d;else newDaily();show('game');renderRound(true);$('b0')&&$('b0').focus({preventScroll:true})},startDaily)}
+function startEndless(){withData(()=>{const e=LS.get('pt_endless');if(e&&e.ids&&e.ids.every(id=>BYID[id])&&e.lives>0)run=e;else newEndless();show('game');renderRound(true)},startEndless)}
+$('dailyBtn').onclick=startDaily;$('endlessBtn').onclick=startEndless;
+$('logo').onclick=()=>{show('start');renderStart();history.replaceState(null,'',location.pathname+(QS.get('lang')?'?lang='+QS.get('lang'):''))};
+function applyLang(){document.documentElement.lang=L==='zh'?'zh-Hant':'en';document.title=L==='zh'?'保單疑雲 🧾 Paper Trail':'Paper Trail 🧾 保單疑雲';
+ $('lEn').classList.toggle('on',L==='en');$('lZh').classList.toggle('on',L==='zh');$('logo').title=L==='zh'?'回首頁':'Home';
+ document.querySelectorAll('[data-t]').forEach(e=>{const v=T(e.dataset.t);if(typeof v==='string')e.textContent=v});
+ renderStart();if($('game').classList.contains('on')&&run&&CASES.length)renderRound(false);if($('end').classList.contains('on'))renderEnd()}
+$('langBtn').onclick=()=>{L=L==='zh'?'en':'zh';LS.set('pt_lang',L);applyLang()};
+addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea')||e.ctrlKey||e.metaKey||e.altKey)return;if(!$('game').classList.contains('on')||!run)return;
+ const n=+e.key;if(n>=1&&n<=4){const b=$('b'+(n-1));if(b){b.click();e.preventDefault()}}});
+let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(fitAll,80)});
+applyLang();
+boot().then(()=>{if(QS.has('daily'))startDaily()}).catch(()=>{if(QS.has('daily'))startDaily()});
+</script>
+</body></html>
