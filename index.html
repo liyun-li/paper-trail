@@ -242,8 +242,11 @@ function boot(){if(loadP)return loadP;loadP=getJSON('cases.json',3).then(d=>{con
  CASES=a;SLOTS=Math.min(6,Math.max(...a.map(c=>Math.max(c.trail_en.length,c.trail_zh.length))));BYID={};for(const c of a)BYID[c.id]=c;renderStart();return a}).catch(e=>{loadP=null;throw e});return loadP}
 // ---- runs ----
 // Daily: a fixed shuffled order of all cases; day N takes the next 5, so every case shows before any repeats.
-function docketIds(day){const ids=CASES.map(c=>c.id).sort();shuf(ids,rng('order|'+ids.length));const n=dayNo(day),o=[];
- const k=Math.min(DOCKET,ids.length);let s=((n-1)*k)%ids.length;if(s<0)s+=ids.length;for(let i=0;i<k;i++)o.push(ids[(s+i)%ids.length]);return o}
+// Every daily docket holds 2+2+1 of the three verdicts (the single one rotates by day), each drawn in turn from its own fixed seeded order, then shuffled for the day.
+function docketIds(day){const r=rng('order|'+CASES.length),by=VS.map(v=>shuf(CASES.filter(c=>c.verdict===v).map(c=>c.id).sort(),r)),n=Math.max(1,dayNo(day)),o=[];
+ const per=(j,m)=>by[j].length?(m%3===j?1:2):0,b=Math.floor((n-1)/3);
+ by.forEach((a,j)=>{if(!a.length)return;let u=b*5;for(let m=b*3+1;m<n;m++)u+=per(j,m);for(let q=0;q<per(j,n);q++)o.push(a[(u+q)%a.length])});
+ return shuf([...new Set(o)],rng('day|'+day))}
 function crackOrder(seed){return shuf([0,1,2,3],rng('crack|'+seed))}
 function newDaily(){const day=today(),ids=docketIds(day);run={mode:'d',day,ids,co:ids.map(id=>crackOrder(day+id)),i:0,st:'v',res:[]};save()}
 function newEndless(){run={mode:'e',ids:[],co:[],i:0,st:'v',res:[],lives:LIVES};addEndless();save()}
@@ -258,12 +261,14 @@ function hud(){if(!run)return;const sc=score();
  if(run.mode==='d'){$('hud').textContent=`${Math.min(run.i+1,run.ids.length)}/${run.ids.length} · ${sc} ${T('pts')}`;$('prog').style.width=(run.res.filter(x=>x.c!=null).length/run.ids.length*100)+'%'}
  else{$('hud').textContent=`${'❤️'.repeat(Math.max(0,run.lives))}${'🖤'.repeat(LIVES-Math.max(0,run.lives))} · ${sc}`;$('prog').style.width=((LIVES-run.lives)/LIVES*100)+'%'}}
 function tx(c,k){return c[k+'_'+L]}
-function fit(el){let k=1.3;el.style.setProperty('--k',k);while(el.scrollHeight>el.clientHeight+1&&k>.4){k-=.05;el.style.setProperty('--k',k.toFixed(2))}return k}
+function fit(el){let k=1.3;el.style.setProperty('--k',k);while(el.scrollHeight>el.clientHeight&&k>.4){k-=.05;el.style.setProperty('--k',k.toFixed(2))}return k}
 function fitAll(){const g=$('game');if(!g.classList.contains('on'))return;g.classList.remove('nodocs');const o=$('opts');o.style.removeProperty('--ko');if(run&&run.st==='r'){fit($('rv'));return}
  if(run&&run.st==='c'){g.classList.add('nodocs');let ko=1;const over=()=>g.scrollHeight>g.clientHeight+1||[...o.children].some(b=>b.scrollHeight>b.clientHeight+1);
   while(over()&&ko>.6){ko-=.05;o.style.setProperty('--ko',ko.toFixed(2))}g.classList.remove('nodocs')}
  const k=fit($('docs'));if(run&&run.st==='c'&&k<.7)g.classList.add('nodocs')}
-function renderRound(anim){const c=cur(),x=run.res[run.i]||null,st=run.st,g=$('game');
+// A fast double-tap must not land on the next step's buttons (they sit where the last tap was), so each new step ignores input briefly.
+let holdT=0;const held=()=>performance.now()<holdT;
+function renderRound(anim){if(anim)holdT=performance.now()+350;const c=cur(),x=run.res[run.i]||null,st=run.st,g=$('game');
  g.className='on s-'+st+(anim?' anim':'');
  $('caseNo').textContent=run.mode==='d'?T('caseD')(run.i+1,run.ids.length):T('caseE')(run.i+1);
  $('steps').querySelectorAll('i').forEach((e,j)=>e.classList.toggle('on',j<=['v','c','r'].indexOf(st)));
@@ -291,12 +296,12 @@ function renderReveal(){const c=cur(),x=run.res[run.i];const v=T('st')[c.verdict
  const s=c.source||{};const a=$('srcLink');a.textContent=T('src')(s.id||'');a.href=s.url||'#';a.hidden=!s.url;
  const over=run.mode==='d'?run.i+1>=run.ids.length:run.lives<=0;$('next').textContent=over?T('finish'):T('next')}
 function vib(p){if(navigator.vibrate)try{navigator.vibrate(p)}catch(e){}}
-function pickV(v){if(run.st!=='v')return;const c=cur(),ok=v===c.verdict;run.res[run.i]={v,vok:ok,c:null,cok:false};if(run.mode==='e'&&!ok)run.lives--;
+function pickV(v){if(run.st!=='v'||held())return;const c=cur(),ok=v===c.verdict;run.res[run.i]={v,vok:ok,c:null,cok:false};if(run.mode==='e'&&!ok)run.lives--;
  run.st='c';save();renderRound(true);bump($('hud'));vib(ok?[15,30,15]:[40]);$('live').textContent=(ok?'✓ ':'✗ ')+T('st')[c.verdict];setTimeout(()=>$('b0')&&$('b0').focus({preventScroll:true}),60)}
-function pickC(ci){if(run.st!=='c')return;const c=cur(),x=run.res[run.i];x.c=ci;x.cok=ci===c.crack_answer;run.st='r';save();
+function pickC(ci){if(run.st!=='c'||held())return;const c=cur(),x=run.res[run.i];x.c=ci;x.cok=ci===c.crack_answer;run.st='r';save();
  if(run.mode==='e')addSeen([c.id]);renderRound(true);bump($('hud'));vib(x.cok?[15]:[30]);$('live').textContent=$('rline').textContent;
  setTimeout(()=>$('next').focus({preventScroll:true}),60)}
-$('next').onclick=()=>{const over=run.mode==='d'?run.i+1>=run.ids.length:run.lives<=0;if(over){finish();return}
+$('next').onclick=()=>{if(held())return;const over=run.mode==='d'?run.i+1>=run.ids.length:run.lives<=0;if(over){finish();return}
  if(run.mode==='e'&&run.i+1>=run.ids.length&&!addEndless()){finish();return}
  run.i++;run.st='v';save();renderRound(true);$('b0')&&$('b0').focus({preventScroll:true})};
 function addSeen(ids){const s=new Set(LS.get('pt_seen')||[]);ids.forEach(i=>s.add(i));LS.set('pt_seen',[...s].slice(-800))}
